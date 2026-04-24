@@ -6,42 +6,36 @@ import {PriceConverter} from "./PriceConverter.sol";
 
 error FundMe__NotOwner();
 
-contract FundMe
-{
+contract FundMe {
     // use custom library for conversion rate of ETH/USD
     using PriceConverter for uint256;
 
-    uint256 constant public MINIMUM_USD = 5 * 1e18;
-    address immutable private I_OWNER;
-	AggregatorV3Interface private sPriceFeed;
+    uint256 public constant MINIMUM_USD = 5 * 1e18;
+    address private immutable I_OWNER;
+    AggregatorV3Interface private sPriceFeed;
     address[] private sSenders;
     mapping(address sender => uint256 amountSent) private sSenderToAmountSent;
 
-    constructor(address priceFeed)
-    {
+    constructor(address priceFeed) {
         I_OWNER = msg.sender;
-		sPriceFeed = AggregatorV3Interface(priceFeed);
+        sPriceFeed = AggregatorV3Interface(priceFeed);
     }
 
-	function getVersion() public view returns (uint256)
-	{
-		return sPriceFeed.version();
-	}
+    function getVersion() public view returns (uint256) {
+        return sPriceFeed.version();
+    }
 
-    function fund() public payable
-    {
+    function fund() public payable {
         require(msg.value.getConversionRate(sPriceFeed) >= MINIMUM_USD, "Not enough ETH sent");
         sSenders.push(msg.sender);
         sSenderToAmountSent[msg.sender] += msg.value;
     }
-    
-    function withdraw() public ownerOnly
-    {
-		uint256 totalSenders = sSenders.length;
+
+    function withdraw() public ownerOnly {
+        uint256 totalSenders = sSenders.length;
 
         // set transactions to 0
-        for (uint256 i = 0; i < totalSenders; i++)
-        {
+        for (uint256 i = 0; i < totalSenders; i++) {
             address senderAddress = sSenders[i];
             sSenderToAmountSent[senderAddress] = 0;
         }
@@ -50,47 +44,41 @@ contract FundMe
         sSenders = new address[](0);
 
         // call
-        (bool callSuccess, ) = payable(msg.sender).call{value: address(this).balance}("");
+        (bool callSuccess,) = payable(msg.sender).call{value: address(this).balance}("");
         require(callSuccess, "Withdraw failed");
     }
 
-	// modifiers
-    modifier ownerOnly()
-    {
+    // modifiers
+    modifier ownerOnly() {
         _onlyOwner();
         _;
     }
-	function _onlyOwner() view internal
-	{
-		if (msg.sender != I_OWNER)
-		{
-			revert FundMe__NotOwner();
-		}
-	}
 
-	// receive() and fallback()
-    receive() external payable
-    {
-        fund();
+    function _onlyOwner() internal view {
+        if (msg.sender != I_OWNER) {
+            revert FundMe__NotOwner();
+        }
     }
-    fallback() external payable
-    {
+
+    // receive() and fallback()
+    receive() external payable {
         fund();
     }
 
-	// getters
-	function getOwner() external view returns (address)
-	{
-		return I_OWNER;
-	}
+    fallback() external payable {
+        fund();
+    }
 
-	function getSender(uint256 senderIndex) external view returns (address)
-	{
-		return sSenders[senderIndex];
-	}
+    // getters
+    function getOwner() external view returns (address) {
+        return I_OWNER;
+    }
 
-	function getSenderToAmountSent(address senderAddress) external view returns (uint256)
-	{
-		return sSenderToAmountSent[senderAddress];
-	}
+    function getSender(uint256 senderIndex) external view returns (address) {
+        return sSenders[senderIndex];
+    }
+
+    function getSenderToAmountSent(address senderAddress) external view returns (uint256) {
+        return sSenderToAmountSent[senderAddress];
+    }
 }
