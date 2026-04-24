@@ -1,5 +1,4 @@
 # FundMe
----
 
 ## About
 This is a minimal project allowing users to fund the contract owner with donations. The smart contract accepts ETH as donations, denominated in USD. Donations have a minimal USD value, otherwise they are rejected. The value is priced using a Chainlink price feed, and the smart contract keeps track of donors in case they are to be rewarded in the future.
@@ -18,7 +17,7 @@ This is a minimal project allowing users to fund the contract owner with donatio
 					- [Withdraw](#withdraw)
 			- [Estimate gas](#estimate-gas)
 	- [Formatting](#formatting)
-	- [Find my contract at](#find-my-contract-at)
+	- [Contract Address](#contract-address)
 
 ## Getting Started
 
@@ -134,7 +133,7 @@ To run code formatting:
 forge fmt
 ```
 
-## Find my contract at
+## Contract Address
 
 Address: `0x03CE562BfEE8F88ceEf7a3288dcAc80D6bC6D059`
 
