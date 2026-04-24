@@ -1,32 +1,35 @@
-# About
+# FundMe
+---
 
+## About
 This is a minimal project allowing users to fund the contract owner with donations. The smart contract accepts ETH as donations, denominated in USD. Donations have a minimal USD value, otherwise they are rejected. The value is priced using a Chainlink price feed, and the smart contract keeps track of donors in case they are to be rewarded in the future.
 
-- [About](#about)
-- [Getting Started](#getting-started)
-	- [Requirements](#requirements)
-	- [Quickstart](#quickstart)
-- [Usage](#usage)
-	- [Deploy](#deploy)
-	- [Testing](#testing)
-		- [Test Coverage](#test-coverage)
-- [Deployment to a testnet or mainnet](#deployment-to-a-testnet-or-mainnet)
-	- [Scripts](#scripts)
-		- [Withdraw](#withdraw)
-	- [Estimate gas](#estimate-gas)
-- [Formatting](#formatting)
-- [Find my contract at](#find-my-contract-at)
+- [FundMe](#fundme)
+	- [About](#about)
+	- [Getting Started](#getting-started)
+			- [Requirements](#requirements)
+			- [Quickstart](#quickstart)
+	- [Usage](#usage)
+			- [Deploy](#deploy)
+			- [Testing](#testing)
+					- [Test Coverage](#test-coverage)
+	- [Deployment to a testnet or mainnet](#deployment-to-a-testnet-or-mainnet)
+			- [Scripts](#scripts)
+					- [Withdraw](#withdraw)
+			- [Estimate gas](#estimate-gas)
+	- [Formatting](#formatting)
+	- [Find my contract at](#find-my-contract-at)
 
-# Getting Started
+## Getting Started
 
-## Requirements
+#### Requirements
 
 - [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
     - You'll know you did it right if you can run `git --version` and you see a response like `git version x.x.x`
 - [foundry](https://getfoundry.sh/)
     - You'll know you did it right if you can run `forge --version` and you see a response like `forge 0.2.0 (816e00b 2023-03-16T00:05:26.396218Z)`
 
-## Quickstart
+#### Quickstart
 
 ```
 git clone https://github.com/Aniket-Roy22/FundMe.git
@@ -34,15 +37,15 @@ cd FundMe
 make
 ```
 
-# Usage
+## Usage
 
-## Deploy
+#### Deploy
 
 ```
 forge script script/FundMeDeploy.s.sol
 ```
 
-## Testing
+#### Testing
 
 ```
 forge test
@@ -62,13 +65,13 @@ or
 forge test --fork-url $SEPOLIA_RPC_URL
 ```
 
-### Test Coverage
+###### Test Coverage
 
 ```
 forge coverage
 ```
 
-# Deployment to a testnet or mainnet
+## Deployment to a testnet or mainnet
 
 1. Setup environment variables
 
@@ -90,7 +93,7 @@ Head over to [Google Cloud Web3](https://cloud.google.com/application/web3/fauce
 forge script script/DeployFundMe.s.sol --rpc-url $SEPOLIA_RPC_URL --private-key $SEPOLIA_PRIVATE_KEY --broadcast --verify --etherscan-api-key $ETHERSCAN_API_KEY
 ```
 
-## Scripts
+#### Scripts
 
 After deploying to a testnet or local net, you can run the scripts.
 
@@ -107,13 +110,13 @@ forge script script/Interactions.s.sol:FundingFundMe --rpc-url sepolia  --privat
 forge script script/Interactions.s.sol:WithdrawingFundMe --rpc-url sepolia  --private-key $SEPOLIA_PRIVATE_KEY  --broadcast
 ```
 
-### Withdraw
+###### Withdraw
 
 ```
 cast send <FUNDME_CONTRACT_ADDRESS> "withdraw()"  --private-key <PRIVATE_KEY>
 ```
 
-## Estimate gas
+#### Estimate gas
 
 You can estimate how much gas things cost by running:
 
@@ -123,7 +126,7 @@ forge snapshot
 
 And you'll see an output file called `.gas-snapshot`
 
-# Formatting
+## Formatting
 
 To run code formatting:
 
@@ -131,7 +134,7 @@ To run code formatting:
 forge fmt
 ```
 
-# Find my contract at
+## Find my contract at
 
 Address: `0x03CE562BfEE8F88ceEf7a3288dcAc80D6bC6D059`
 
