@@ -1,0 +1,1 @@
+export const FundMeContractAddress = 0x03ce562bfee8f88ceef7a3288dcac80d6bc6d059;
