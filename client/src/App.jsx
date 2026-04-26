@@ -1,9 +1,12 @@
+import FundMe from "./components/FundMe";
 import "./App.css";
 
 function App()
 {
 	return (
-		<div></div>
+		<>
+			<FundMe />
+		</>
 	);
 }
 
